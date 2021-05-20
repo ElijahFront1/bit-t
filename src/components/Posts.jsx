@@ -1,7 +1,19 @@
-import React, { useState } from 'react'
-import { Button, Card, Col, FormControl, InputGroup, Modal, Row } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react'
+import { Button, Col, FormControl, InputGroup, Modal, Row } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPostsAndComments } from '../store/actions';
+import Post from './Post';
 
 function Posts() {
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchPostsAndComments())
+    }, []);
+
+    const posts = useSelector(({ reducer }) => reducer.data)
+    console.log(posts);
+
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -9,20 +21,11 @@ function Posts() {
     return (
         <Row>
             <Col md={{ span: 6, offset: 3, order: 'first' }}>
-                <Card style={{
-                    width: '100%',
-                    marginTop: 10
-                }}>
-                    <Card.Body>
-                        <Card.Title>Card Title</Card.Title>
-                        <Card.Text>
-                            Some quick example text to build on the card title and make up the bulk of
-                            the card's content.
-                        </Card.Text>
-                        <Card.Link href="#">Edit</Card.Link>
-                        <Card.Link href="#">Delete</Card.Link>
-                    </Card.Body>
-                </Card>
+                {posts && posts.map(item => {
+                    <Post
+                        key={posts.id}
+                    />
+                })}
             </Col>
             <Col md={{ span: 6, offset: 3, order: 'last' }}
                 style={{

@@ -82,5 +82,8 @@
             "postId": 4,
             "text": "post 4 comment"
         }
-    ]
+    ],
+    "profile": {
+        "name": "typicode"
+    }
 }

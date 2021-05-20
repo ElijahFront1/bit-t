@@ -1,19 +1,15 @@
 import axios from 'axios'
 
-let postsURL = "https://jsonplaceholder.typicode.com/posts"
-let usersURL = "https://jsonplaceholder.typicode.com/users"
+let postsURL = "https://my-json-server.typicode.com/Span415/bit-t/posts"
+let commentsURL = "https://my-json-server.typicode.com/Span415/bit-t/comments"
 
 const postPromise = axios.get(postsURL);
-const userPromise = axios.get(usersURL);
+const commentsPromise = axios.get(commentsURL);
 
-export const newData = () => (dispatch) => {
-    Promise.all([postPromise, userPromise]).then((values) => {
-        dispatch(setNewData(values))
+export const fetchPostsAndComments = () => (dispatch) => {
+    Promise.all([postPromise, commentsPromise]).then((values) => {
+        dispatch(setPostsAndComments(values))
     });
 }
-export const searchPosts = (search) => (dispatch) => {
-    dispatch(setSearch(search))
-}
 
-export const setNewData = (data) => ({ type: 'COMBINE_DATA', payload: data })
-export const setSearch = (search) => ({ type: 'SEARCH_VALUE', payload: search })
+export const setPostsAndComments = (data) => ({ type: 'COMBINE_DATA', payload: data })
